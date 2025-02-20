@@ -5,16 +5,35 @@ public class Principal{
     public static void main(String[] args) {
 
         Metodos f = new Metodos();
-        byte opcion;
+        byte opcion = 0;
         int d;
         d = f.dimension();
         Almacen[][] matriz = new Almacen[d][d];
-        matriz = f.llenarMatriz(d);
+        Libreria[][] matrizL = new Libreria[d][d];
 
-        System.out.println("----- MENU PRINCIPAL -----");
-        do {
-            System.out.println("1. Encontrar producto en la matriz\n2. Mostrar productos de la matriz\n3. Inventario total\n 4. Salir");
+
+        System.out.println("\n----- MENU PRINCIPAL -----");
+        
+        System.out.println("¿Qué ejercicio desea ver?");
+        System.out.println("1. Almacen\n2. Libreria");
+        if (opcion == 1) {
+            matriz = f.llenarMatriz(d);
+        }else if (opcion == 2) {
+            matrizL = f.llenarMatrizLibreria(d);
+        }
+
+        while (opcion != 4) {
+            
+            System.out.println("\n1. Encontrar producto en la matriz\n2. Mostrar productos de la matriz\n3. Inventario total\n4. Salir\n");
             System.out.print("Digite a qué opción quiere entrar: ");
+  
+            // Validacion
+            while (!sc.hasNextInt()) {
+                System.out.println("Dato incorrecto" );
+                System.out.print("Digite a qué opción quiere entrar: ");
+                sc.next();
+            }
+
             opcion = sc.nextByte();
 
             switch (opcion) {
@@ -28,14 +47,16 @@ public class Principal{
 
                 case 3:
                     f.sumarCantidadProductos(matriz);
+                    break;
                     
                 case 4:
-                System.out.println("Saliendo...");
+                    System.out.println("Saliendo...");
+                    break;
             
                 default:
                     System.out.println("Opción no válida, intenta de nuevo.");
                     break;
             }
-        } while (opcion != 4);
+        }
     }
 }
