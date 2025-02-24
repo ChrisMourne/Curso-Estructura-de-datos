@@ -143,5 +143,54 @@ public class Metodos {
         for (int i = 0; i < fusion; i++) { 
             System.out.println(fusionada[i].getNombre() + " Stock: " + fusionada[i].getCantidad());
         }       
-    }    
+    }
+    public Almacen[][] SumarStock(Almacen[][] m, Almacen[][] n){
+        if (m.length > n.length) {
+            for (int i = 0; i < m.length; i++) {
+                for (int j = 0; j <  m.length; j++) {
+                    for (int i2 = 0; i2 < n.length; i2++) {
+                        for (int j2 = 0; j2 < n.length; j2++) {
+                            if (m[i][j].getNombre().equalsIgnoreCase(n[i2][j2].getNombre())) {
+                                m[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
+                            }
+                        }
+                    }
+                }
+            }
+        return m;
+        }
+        else if (m.length < n.length)             
+        {
+            for (int i = 0; i < n.length; i++) {
+                for (int j = 0; j < n.length; j++) {
+                  for (int i2 = 0; i2 < n.length; i2++) {
+                    for (int j2 = 0; j2 < n.length; j2++) {
+                        if (n[i][j].getNombre().equalsIgnoreCase(m[i2][j2].getNombre())) {
+                            n[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
+                        }
+                    }
+                  }  
+                }
+            }
+            return n;
+        }
+        else{
+            for (int i = 0; i < m.length; i++) {
+                for (int j = 0; j <  m.length; j++) {
+                    for (int i2 = 0; i2 < n.length; i2++) {
+                        for (int j2 = 0; j2 < n.length; j2++) {
+                            if (m[i][j].getNombre().equalsIgnoreCase(n[i2][j2].getNombre())) {
+                                m[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
+                            }
+                        }
+                    }
+                }
+            }
+            return m;
+        }
+    }
+
+    public void fusion(){
+    
+    }
 }
