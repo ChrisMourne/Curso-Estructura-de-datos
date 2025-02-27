@@ -1,13 +1,13 @@
-public class Libreria {
+public class Libro {
     private String titulo;
     private String autor;
     private float precio;
 
-    public Libreria(){
+    public Libro(){
         
     }
 
-    public Libreria(String titulo, String autor, float precio) {
+    public Libro(String titulo, String autor, float precio) {
         this.titulo = titulo;
         this.autor = autor;
         this.precio = precio;

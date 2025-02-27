@@ -3,18 +3,17 @@ import java.util.Scanner;
 public class Metodos {
     Scanner sc = new Scanner(System.in);
 
-    Almacen[][] llenarMatriz(){
+    Producto[][] llenarMatriz(){
 
         int d;
         System.out.print("Cuál es la dimensión de la matriz: ");
         d = sc.nextInt();
-
-        Almacen[][] m = new Almacen[d][d];
+        Producto[][] m = new Producto[d][d];
         int c = 1;
 
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m.length; j++) {
-                Almacen a = new Almacen();
+                Producto a = new Producto();
                 System.out.println("\nProducto número "+ (c));
                 System.out.print("Digite el nombre del producto: ");
                 a.setNombre(sc.next());
@@ -29,19 +28,21 @@ public class Metodos {
         return m;
     }
 
-    Libreria[][] llenarMatrizLibreria(int d){
-        Libreria[][] m = new Libreria[d][d];
+    Libro[][] llenarMatrizLibreria(int d){
+        Libro[][] m = new Libro[d][d];
         int c = 1;
 
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m.length; j++) {
-                Libreria l = new Libreria();
+                Libro l = new Libro();
+                sc.nextLine();
                 System.out.println("\nLibro número "+ (c));
                 System.out.print("Digite el nombre del libro: ");
                 l.setTitulo(sc.nextLine());
                 System.out.print("Digite el autor del libro: ");
                 l.setAutor(sc.nextLine());
                 System.out.print("Digite el precio del libro: ");
+                l.setPrecio(sc.nextFloat());
                 m[i][j] = l;
                 c = c + 1;
             }
@@ -49,7 +50,7 @@ public class Metodos {
         return m;
     }
 
-    public void mostrarMatriz(Almacen[][] m){
+    public void mostrarMatriz(Producto[][] m){
         int c = 1;
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m.length; j++) {
@@ -66,40 +67,6 @@ public class Metodos {
         return d;
     }
 
-    public void encontrarProducto(Almacen[][] m){
-        String p;
-        sc.nextLine();
-        System.out.print("¿Qué producto desea encontrar?: ");
-        p = sc.nextLine();
-        Boolean s = false;
-
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m.length; j++) {
-                if (m[i][j].getNombre().equals(p)) {
-                    System.out.println("\nEl producto esta en la fila "+i+" y en la columna "+j+"\n");
-                    System.out.println("Sus datos son los siguientes: ");
-                    System.out.println("Producto: "+m[i][j].getNombre()+" "+"Precio: "+m[i][j].getPrecio()+" "+"Stock: "+m[i][j].getCantidad());
-                    s = true;
-
-                    break;
-                }
-            }
-        }
-        if (s == false) {
-            System.out.println("\nNo se encontró el producto.");
-        }
-    }
-
-    public void sumarCantidadProductos(Almacen[][] m){
-        int suma = 0;
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m.length; j++) {
-                suma = suma + m[i][j].getCantidad();
-            }
-        }
-        System.out.println("\nLos cantidad total de productos en el inventario es de: "+suma);
-    }
-
 // Tienes dos matrices de objetos Producto, una para cada tienda, con atributos nombre, precio, stock. 
 // Escribe un algoritmo que fusione ambas matrices sumando el stock de los productos idénticos. Los productos que no son idénticos 
 // los debe agregar en la matriz resultante 
@@ -107,16 +74,16 @@ public class Metodos {
 //Debo sumar el stock si los productos son identicos, y añadirlos a la nueva matriz resultante, además los que no son idénticos debo también agregarlos
 
     public void fusionMatrices() {
-        Almacen[][] m1 = llenarMatriz();  
-        Almacen[][] m2 = llenarMatriz();  
+        Producto[][] m1 = llenarMatriz();  
+        Producto[][] m2 = llenarMatriz();  
         
         int tamaño = m1.length * m1[0].length + m2.length * m2[0].length;
-        Almacen[] fusionada = new Almacen[tamaño];
+        Producto[] fusionada = new Producto[tamaño];
         int fusion = 0;
 
         for (int i = 0; i < m1.length; i++) {
             for (int j = 0; j < m1[i].length; j++) {
-                fusionada[fusion] = new Almacen(m1[i][j].getNombre(), m1[i][j].getPrecio(), m1[i][j].getCantidad());
+                fusionada[fusion] = new Producto(m1[i][j].getNombre(), m1[i][j].getPrecio(), m1[i][j].getCantidad());
                 fusion++;
             }
         }
@@ -133,7 +100,7 @@ public class Metodos {
                     }
                 }
                 if (!bandera) {
-                    fusionada[fusion] = new Almacen(m2[i][j].getNombre(), m2[i][j].getPrecio(), m2[i][j].getCantidad());
+                    fusionada[fusion] = new Producto(m2[i][j].getNombre(), m2[i][j].getPrecio(), m2[i][j].getCantidad());
                     fusion++;
                 }
             }
@@ -144,7 +111,7 @@ public class Metodos {
             System.out.println(fusionada[i].getNombre() + " Stock: " + fusionada[i].getCantidad());
         }       
     }
-    public Almacen[][] SumarStock(Almacen[][] m, Almacen[][] n){
+    public Producto[][] SumarStock(Producto[][] m, Producto[][] n){
         if (m.length > n.length) {
             for (int i = 0; i < m.length; i++) {
                 for (int j = 0; j <  m.length; j++) {

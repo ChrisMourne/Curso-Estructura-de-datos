@@ -1,13 +1,13 @@
-public class Almacen {
+public class Producto {
     private String nombre;
     private float precio;
     private int cantidad;
 
-    public Almacen(){
+    public Producto(){
         
     }
 
-    public Almacen(String nombre, float precio, int cantidad) {
+    public Producto(String nombre, float precio, int cantidad) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
