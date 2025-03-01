@@ -1,12 +1,12 @@
 public class Asiento {
     private int numero;
-    private String fila;
+    private int fila;
     private float precio;
     
     public Asiento() {
     }
 
-    public Asiento(int numero, String fila, float precio) {
+    public Asiento(int numero, int fila, float precio) {
         this.numero = numero;
         this.fila = fila;
         this.precio = precio;
@@ -20,11 +20,11 @@ public class Asiento {
         this.numero = numero;
     }
 
-    public String getFila() {
+    public int getFila() {
         return fila;
     }
 
-    public void setFila(String fila) {
+    public void setFila(int fila) {
         this.fila = fila;
     }
 

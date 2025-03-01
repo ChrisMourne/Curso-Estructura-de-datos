@@ -28,7 +28,11 @@ public class Metodos {
         return m;
     }
 
-    Libro[][] llenarMatrizLibreria(int d){
+    Libro[][] llenarMatrizLibreria(){
+        
+        int d;
+        System.out.print("Cuál es la dimensión de la matriz: ");
+        d = sc.nextInt();
         Libro[][] m = new Libro[d][d];
         int c = 1;
 
@@ -50,114 +54,74 @@ public class Metodos {
         return m;
     }
 
-    public void mostrarMatriz(Producto[][] m){
-        int c = 1;
+    Asiento[][] llenarMatrizAsientos(){
+        int d;
+        System.out.print("¿Cuál es la dimensión de la matriz de los asientos?: ");
+        d = sc.nextInt();
+        int f = 1;
+        int n = 1;
+
+        Asiento[][] m = new Asiento[d][d];
+
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m.length; j++) {
-                System.out.println("\nProducto número "+c+" | Producto: "+m[i][j].getNombre()+" | "+"Precio: "+m[i][j].getPrecio()+" | "+"Stock: "+m[i][j].getCantidad()+"\n");
+                if (n > m.length) {
+                    n = 1;
+                    f = f + 1;
+                }
+                Asiento a = new Asiento();
+                a.setFila(f);
+                a.setNumero(n);
+                a.setPrecio((float)Math.random()*10+1);
+                m[i][j] = a;
+                n = n + 1;
+                
+            }
+        }
+        return m;
+    }
+
+    ProductoSuper[][] llenarmatrizSuper(){
+        int d;
+        System.out.print("¿Cuál es la dimensión que tiene la matriz de los productos del supermercado?: ");
+        d = sc.nextInt();
+        int c = 1;
+        ProductoSuper[][] m = new ProductoSuper[d][d];
+        sc.nextLine();
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m.length; j++) {
+                ProductoSuper p = new ProductoSuper();
+
+                System.out.println("Producto número: "+c);
+                System.out.print("Digite el nombre del producto: ");
+                p.setNombre(sc.nextLine());
+                p.setPrecio((float)(Math.random()*10+1));
+                System.out.print("¿Disponible? digite (true/false): ");
+                p.setDisponibilidad(sc.nextBoolean());
+                m[i][j] = p;
                 c = c + 1;
             }
         }
-    }
-
-    public int dimension(){
-        int d;
-        System.out.print("Cuál es la dimensión de la matriz: ");
-        d = sc.nextInt();
-        return d;
-    }
-
-// Tienes dos matrices de objetos Producto, una para cada tienda, con atributos nombre, precio, stock. 
-// Escribe un algoritmo que fusione ambas matrices sumando el stock de los productos idénticos. Los productos que no son idénticos 
-// los debe agregar en la matriz resultante 
-
-//Debo sumar el stock si los productos son identicos, y añadirlos a la nueva matriz resultante, además los que no son idénticos debo también agregarlos
-
-    public void fusionMatrices() {
-        Producto[][] m1 = llenarMatriz();  
-        Producto[][] m2 = llenarMatriz();  
-        
-        int tamaño = m1.length * m1[0].length + m2.length * m2[0].length;
-        Producto[] fusionada = new Producto[tamaño];
-        int fusion = 0;
-
-        for (int i = 0; i < m1.length; i++) {
-            for (int j = 0; j < m1[i].length; j++) {
-                fusionada[fusion] = new Producto(m1[i][j].getNombre(), m1[i][j].getPrecio(), m1[i][j].getCantidad());
-                fusion++;
-            }
-        }
-        
-        for (int i = 0; i < m2.length; i++) {
-            for (int j = 0; j < m2.length; j++) {
-                boolean bandera = false;
-
-                for (int j2 = 0; j2 < fusion; j2++) {
-                    if (fusionada[j2] != null && fusionada[j2].getNombre().equals(m2[i][j].getNombre())) {
-                        fusionada[j2].setCantidad(fusionada[j2].getCantidad() + m2[i][j].getCantidad());
-                        bandera = true;
-                        break;
-                    }
-                }
-                if (!bandera) {
-                    fusionada[fusion] = new Producto(m2[i][j].getNombre(), m2[i][j].getPrecio(), m2[i][j].getCantidad());
-                    fusion++;
-                }
-            }
-        }
-        
-        System.out.println("Matriz fusionada:");
-        for (int i = 0; i < fusion; i++) { 
-            System.out.println(fusionada[i].getNombre() + " Stock: " + fusionada[i].getCantidad());
-        }       
-    }
-    public Producto[][] SumarStock(Producto[][] m, Producto[][] n){
-        if (m.length > n.length) {
-            for (int i = 0; i < m.length; i++) {
-                for (int j = 0; j <  m.length; j++) {
-                    for (int i2 = 0; i2 < n.length; i2++) {
-                        for (int j2 = 0; j2 < n.length; j2++) {
-                            if (m[i][j].getNombre().equalsIgnoreCase(n[i2][j2].getNombre())) {
-                                m[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
-                            }
-                        }
-                    }
-                }
-            }
         return m;
-        }
-        else if (m.length < n.length)             
-        {
-            for (int i = 0; i < n.length; i++) {
-                for (int j = 0; j < n.length; j++) {
-                  for (int i2 = 0; i2 < n.length; i2++) {
-                    for (int j2 = 0; j2 < n.length; j2++) {
-                        if (n[i][j].getNombre().equalsIgnoreCase(m[i2][j2].getNombre())) {
-                            n[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
-                        }
-                    }
-                  }  
-                }
-            }
-            return n;
-        }
-        else{
-            for (int i = 0; i < m.length; i++) {
-                for (int j = 0; j <  m.length; j++) {
-                    for (int i2 = 0; i2 < n.length; i2++) {
-                        for (int j2 = 0; j2 < n.length; j2++) {
-                            if (m[i][j].getNombre().equalsIgnoreCase(n[i2][j2].getNombre())) {
-                                m[i][j].setCantidad(m[i][j].getCantidad() + n[i2][j2].getCantidad());
-                            }
-                        }
-                    }
-                }
-            }
-            return m;
-        }
     }
 
-    public void fusion(){
-    
+    Estudiante[][] llenarMatrizEstudiantes(){
+        int d;
+        System.out.print("¿Cuál es la dimensión que tiene la matriz de los estudiantes?: ");
+        d = sc.nextInt();
+        Estudiante[][] m = new Estudiante[d][d];
+        sc.nextLine();
+        
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m.length; j++) {
+                Estudiante e = new Estudiante();
+                System.out.print("Nombre: ");
+                e.setNombre(sc.nextLine());
+                System.out.print("Calificación: ");
+                e.setCalificacion(sc.nextLine().toUpperCase());
+                m[i][j] = e;
+            }
+        }
+        return m;
     }
 }
